@@ -1,0 +1,2 @@
+bad-domain.com
+example-malware.net
