@@ -25,6 +25,21 @@ A curated collection of **free threat intelligence feeds** aggregated daily from
 - 🔁 Sources listed in `sources.json`
 - 🐍 Python script: [`scripts/aggregator.py`](scripts/aggregator.py)
 
+### 📊 Metadata
+
+The `feeds/metadata.json` file contains information about the relevance and number of records for each type:
+
+```json
+{
+  "updated_at": "2025-06-17T10:40:00Z",
+  "counts": {
+    "ip.txt": 4976,
+    "domain.txt": 9064,
+    "url.txt": 123456
+  }
+}
+```
+
 ---
 
 ## 📚 Included Sources
@@ -56,5 +71,4 @@ next
 Pull requests are welcome — feel free to suggest new feeds or improvements.
 
 ---
-
 © 2025 [cleverg0d](https://github.com/cleverg0d) • Open Threat Intelligence Initiative
