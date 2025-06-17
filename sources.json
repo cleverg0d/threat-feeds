@@ -1,3 +1,15 @@
 {
-  "sources": ["https://example.com/feed.txt"]
+  "ip": [
+    "https://feodotracker.abuse.ch/downloads/ipblocklist.txt",
+    "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset"
+  ],
+  "url": [
+    "https://urlhaus.abuse.ch/downloads/text/",
+    "https://raw.githubusercontent.com/stamparm/maltrail/master/trails/static/malware/url.txt",
+    "https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-links-ACTIVE.txt"
+  ],
+  "domain": [
+    "https://raw.githubusercontent.com/stamparm/blackbook/master/blackbook.txt",
+    "https://raw.githubusercontent.com/mitchellkrogza/Ultimate.Hosts.Blacklist/master/domains.list"
+  ]
 }
