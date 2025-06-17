@@ -15,8 +15,10 @@ SOURCES = {
         "http://malc0de.com/bl/IP_Blacklist.txt"
     ],
     "url": [
-        "https://urlhaus.abuse.ch/downloads/text/",
-    ],
+    "https://urlhaus.abuse.ch/downloads/text/",
+    "https://raw.githubusercontent.com/stamparm/maltrail/master/trails/static/malware/url.txt",
+    "https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-links-ACTIVE.txt"
+],
     "domain": [
         "https://raw.githubusercontent.com/stamparm/blackbook/master/blackbook.txt"
     ]
@@ -60,6 +62,10 @@ def main():
     for url in SOURCES["domain"]:
         data = fetch(url)
         all_domains.update(extract_domains(data))
+
+    print(f"[+] IPs collected: {len(all_ips)}")
+    print(f"[+] Domains collected: {len(all_domains)}")
+    print(f"[+] URLs collected: {len(all_urls)}")
 
     save_to_file("ip.txt", all_ips)
     save_to_file("url.txt", all_urls)
