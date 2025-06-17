@@ -23,20 +23,20 @@ SOURCES = {
 }
 
 def fetch(url):
-    try:def extract_domains(text):
+    try:
         resp = requests.get(url, timeout=20)
         if resp.ok:
             return resp.text
-    except Exception:
-        return ""
+    except Exception as e:
+        print(f"[!] Failed to fetch {url}: {e}")
     return ""
-
-def extract_ips(text):
-    return set(re.findall(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b', text))
 
 def extract_domains(text):
     raw = re.findall(r'(?:^|\s)([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(?:\s|$)', text)
     return set(d.strip(".,;()[]{}") for d in raw if not d.startswith("http"))
+
+def extract_ips(text):
+    return set(re.findall(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b', text))
 
 def extract_urls(text):
     return set(re.findall(r'https?://[^\s]+', text))
