@@ -55,6 +55,13 @@ def main():
         data = fetch(url)
         all_domains.update(extract_domains(data))
 
+    # Исключаем "мусорные" значения
+    BAD_IPS = {"0.0.0.0", "127.0.0.1"}
+    BAD_DOMAINS = {"localhost"}
+
+    all_ips = {ip for ip in all_ips if ip not in BAD_IPS}
+    all_domains = {d for d in all_domains if d.lower() not in BAD_DOMAINS}
+
     print(f"\n=== Summary ===")
     print(f"[+] IPs collected: {len(all_ips)}")
     print(f"[+] Domains collected: {len(all_domains)}")
