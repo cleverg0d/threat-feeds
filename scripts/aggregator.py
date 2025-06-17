@@ -1,28 +1,19 @@
 import requests
 import os
 import re
+import json
 
 # Папка с результатами
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'feeds')
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# Источники фидов
-SOURCES = {
-    "ip": [
-        "https://feodotracker.abuse.ch/downloads/ipblocklist.txt",
-        "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
-        "https://rules.emergingthreats.net/blockrules/compromised-ips.txt",
-        "http://malc0de.com/bl/IP_Blacklist.txt"
-    ],
-    "url": [
-    "https://urlhaus.abuse.ch/downloads/text/",
-    "https://raw.githubusercontent.com/stamparm/maltrail/master/trails/static/malware/url.txt",
-    "https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-links-ACTIVE.txt"
-],
-    "domain": [
-        "https://raw.githubusercontent.com/stamparm/blackbook/master/blackbook.txt"
-    ]
-}
+def load_sources(file_path="../sources.json"):
+    try:
+        with open(file_path, "r") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"[!] Failed to load sources.json: {e}")
+        return {"ip": [], "url": [], "domain": []}
 
 def fetch(url):
     try:
@@ -41,7 +32,7 @@ def extract_ips(text):
     return set(re.findall(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b', text))
 
 def extract_urls(text):
-    return set(re.findall(r'https?://[^\s]+', text))
+    return set(re.findall(r'https?://[^\s"]+', text))
 
 def save_to_file(filename, items):
     with open(os.path.join(OUTPUT_DIR, filename), 'w') as f:
@@ -49,17 +40,19 @@ def save_to_file(filename, items):
             f.write(item + '\n')
 
 def main():
+    SOURCES = load_sources()
+
     all_ips, all_urls, all_domains = set(), set(), set()
 
-    for url in SOURCES["ip"]:
+    for url in SOURCES.get("ip", []):
         data = fetch(url)
         all_ips.update(extract_ips(data))
 
-    for url in SOURCES["url"]:
+    for url in SOURCES.get("url", []):
         data = fetch(url)
         all_urls.update(extract_urls(data))
 
-    for url in SOURCES["domain"]:
+    for url in SOURCES.get("domain", []):
         data = fetch(url)
         all_domains.update(extract_domains(data))
 
