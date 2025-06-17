@@ -1,1 +1,2 @@
 feeds/url.txt filter=lfs diff=lfs merge=lfs -text
+feeds/*.txt filter=lfs diff=lfs merge=lfs -text
