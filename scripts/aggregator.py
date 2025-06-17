@@ -67,9 +67,9 @@ def main():
     print(f"[+] Domains collected: {len(all_domains)}")
     print(f"[+] URLs collected: {len(all_urls)}")
 
-    save_to_file("ip.txt", all_ips)
-    save_to_file("url.txt", all_urls)
-    save_to_file("domain.txt", all_domains)
+    save_to_file("feeds/ip.txt", all_ips)
+    save_to_file("feeds/url.txt", all_urls)
+    save_to_file("feeds/domain.txt", all_domains)
 
 if __name__ == "__main__":
     main()
