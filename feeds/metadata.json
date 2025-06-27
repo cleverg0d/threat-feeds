@@ -1,8 +1,8 @@
 {
-  "updated_at": "2025-06-26T03:43:51.927999Z",
+  "updated_at": "2025-06-27T03:44:24.681038Z",
   "counts": {
+    "url.txt": 1355353,
     "ip.txt": 5132,
-    "domain.txt": 9130,
-    "url.txt": 1355922
+    "domain.txt": 9130
   }
 }
