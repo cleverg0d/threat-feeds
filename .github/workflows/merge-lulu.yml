@@ -1,0 +1,34 @@
+name: Merge LuLu Blocklists
+
+on:
+  push:
+    paths:
+      - 'feeds/*.txt'
+      - '!feeds/merged/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Prepare merged directory
+        run: mkdir -p feeds/merged
+
+      - name: Preserve custom block from lulu_blocklist.txt
+        run: |
+          echo "# === Custom entries (manual) ===" > feeds/merged/lulu_combined.txt
+          grep -v '^#' feeds/lulu_blocklist.txt | grep -v '^$' | sort -u >> feeds/merged/lulu_combined.txt
+          echo -e "\n# === Auto-collected from feeds/*.txt ===" >> feeds/merged/lulu_combined.txt
+
+      - name: Append all other .txt files
+        run: |
+          grep -hv '^#' feeds/*.txt | grep -v 'lulu_blocklist.txt' | grep -v '^$' | sort -u >> feeds/merged/lulu_combined.txt
+
+      - name: Commit updated combined blocklist
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add feeds/merged/lulu_combined.txt
+          git commit -m "🔄 Update merged LuLu blocklist" || echo "No changes"
+          git push
