@@ -1,8 +1,8 @@
 {
-  "updated_at": "2025-10-02T03:23:26.941492Z",
+  "updated_at": "2025-10-03T03:22:47.489336Z",
   "counts": {
-    "ip.txt": 4719,
-    "url.txt": 1344593,
+    "ip.txt": 4718,
+    "url.txt": 1350656,
     "domain.txt": 9130,
     "lulu_blocklist.txt": 57
   }
